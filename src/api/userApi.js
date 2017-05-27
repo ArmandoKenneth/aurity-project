@@ -1,0 +1,7 @@
+class UserApi {
+	
+	static getAllUsers() {
+		
+	}
+
+}
