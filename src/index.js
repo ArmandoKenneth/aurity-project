@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import Main from './components/Main';
+// import Main from './components/Main';
 import './index.css';
 
 import { createStore, applyMiddleware } from 'redux';

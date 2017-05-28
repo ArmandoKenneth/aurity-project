@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Link, Route } from 'react-router-dom';
+import {Route } from 'react-router-dom';
 import Main from './components/Main';
 
 class App extends Component {

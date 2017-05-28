@@ -1,8 +1,11 @@
-import React, {PropTypes} from 'react';  
+import React from 'react';  
 import {connect} from 'react-redux';  
 import * as userActions from '../actions/userActions';
+import * as workActions from '../actions/workActions';
 import UserSelect from '../components/UserSelect';
 import {bindActionCreators} from 'redux';
+import PropTypes from 'prop-types';
+import Calendar from '../components/Calendar';
 
 class Main extends React.Component {  
 
@@ -27,6 +30,7 @@ class Main extends React.Component {
 					/>
 				<br/>
 				{this.props.selectedUser ? this.props.selectedUser.email : ""}
+				<Calendar name="calendar" onChange={this.onChange} monthlyData={this.props.monthlyData} />
 			</div>
 		)
 	}
@@ -35,7 +39,9 @@ class Main extends React.Component {
 		// this.setState({
 		// 	selectedUser: this.props.users.filter(user => user.id == event.target.value)[0]
 		// });
-		this.props.userActions.selectUser(this.props.users.filter(user => user.id == event.target.value)[0]);
+		const user = this.props.users.filter(user => user.id == event.target.value)[0];
+		this.props.userActions.selectUser(user);
+		this.props.workActions.getWorkByUser(user.id);
 	}
 
 }
@@ -48,13 +54,15 @@ Main.propTypes = {
 function mapStateToProps(state, ownProps) {
 	return {
 		users: state.userReducer.users,
-		selectedUser: state.userReducer.selectedUser
+		selectedUser: state.userReducer.selectedUser,
+		monthlyData: state.workReducer.monthlyData
 	}
 } 
 
 function mapDispatchToProps(dispatch){
 	return {
-		userActions: bindActionCreators(userActions, dispatch)
+		userActions: bindActionCreators(userActions, dispatch),
+		workActions: bindActionCreators(workActions, dispatch)
 	}
 }
 
