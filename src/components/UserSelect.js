@@ -1,13 +1,21 @@
 import React from 'react';
+import OptionBuilder from '../components/common/OptionBuilder';
+import * as Constants from '../common/constants';
 
 const UserSelect = ({name, label, onChange, users, selectedUser}) => {
+
+	function buildDisplayName(user){
+		return user.username+" ("+user.email+")";
+	}
+
 	return (
 		<div>
 			<label htmlFor={name}>{label}</label>
 			<select name={name} onChange={onChange}>
 				{
 				    users.map(function(user) {
-				        return <option key={user.id} value={user.id}>{user.username} ({user.email})</option>;
+				    	return OptionBuilder({value: user.id, displayName: buildDisplayName(user)});
+				        // return <option key={user.id} value={user.id}>{user.username} ({user.email})</option>;
 				    })
 			    }
 			</select>

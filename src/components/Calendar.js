@@ -9,7 +9,7 @@ const Calendar = ({name, onClick, monthlyData}) => {
 			<br/>
 			{
 				monthlyData.weeks.map(function(week){
-					return "This week has "+week.days_in_week.length+" days";
+					return "This week ("+week.week_number+") has "+week.days_in_week.length+" days";
 				})
 			}
 		</div>

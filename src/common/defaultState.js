@@ -1,9 +1,16 @@
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+const currentMonth = currentDate.getMonth()+1; 
+
 export default {
+
 	users: [],
 	selectedUser: {},
 	monthlyData: {
-		year: (new Date()).getFullYear(),
+		year: currentYear,
 		weeks: [],
-		month: (new Date()).getMonth()+1
-	}
+		month: currentMonth
+	},
+	selectedYear: currentYear,
+	selectedMonth: currentMonth
 }
