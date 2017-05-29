@@ -1,10 +1,8 @@
 import React from 'react';
+import * as Util from '../../common/util';
 
 const Week = ({week, onClick, selectedWeek}) => {
 	let dayStyle = {
-		// backgroundColor: "blue",
-		// width: "80px",
-		// height: "80px",
 		textAlign: "center",
 		display: "inline",
 		padding: "0.4em",
@@ -12,11 +10,6 @@ const Week = ({week, onClick, selectedWeek}) => {
 		minHeight: "40px",
 		maxWidth: "40px",
 		maxHeight: "40px",
-		// borderLeft: "1px solid rgba(229, 229, 229, 1)",
-		// borderBottom: "1px solid #e5e5e5",
-		// backgroundColor: week.week_id == selectedWeek ? "rgba(229, 229, 229, 1)" : (week.status == "approved" ? "rgba(37, 165, 33, .4)" : (week.status == "rejected" ? "rgba(255, 0, 0, .6)" : "rgba(229, 229, 229, .3)")),
-		// backgroundColor: week.week_id == selectedWeek ? "rgba(229, 229, 229, 1)" : "",
-		
 	};
 
 	let weekStyle = {
@@ -39,9 +32,6 @@ const Week = ({week, onClick, selectedWeek}) => {
 		return "glyphicon "+(status == "approved" ? "glyphicon-ok" : (week.status == "rejected" ? "glyphicon-remove red" : "glyphicon-time"))
 	}
 
-	function addLeadingZero(value){
-		return value < 10 ? "0"+value : value;
-	}
 
 	function sortDay(a, b){
 		return a.id - b.id;
@@ -52,7 +42,7 @@ const Week = ({week, onClick, selectedWeek}) => {
 		<div onClick={onClick} className="row" style={weekStyle}>
 			{
 				week.days_in_week.sort(sortDay).map(function(day){
-					return <div key={day.id} className={classNames} style={dayStyle}> {addLeadingZero(day.day_number)} </div>
+					return <div key={day.id} className={classNames} style={dayStyle}> {Util.addLeadingZero(day.day_number)} </div>
 				})
 			}
 			<span className={buildIcon(week.status)} aria-hidden="true" style={iconStyle}></span>
@@ -61,17 +51,3 @@ const Week = ({week, onClick, selectedWeek}) => {
 };
 
 export default Week;
-			// <span className={buildIcon(week.status)} aria-hidden="true"></span>
-
-// <table>
-// 				<tbody>
-// 					<tr>
-// 					{
-// 						week.days_in_week.map(function(day){
-// 							return <td key={day.id} className={week.week_id} ><div>{day.day_number}</div></td>
-// 						})
-// 					}
-// 					</tr>	
-// 				</tbody>
-				
-// 			</table>

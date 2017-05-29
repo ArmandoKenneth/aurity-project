@@ -1,27 +1,27 @@
 import workApi from "../api/workApi";
-// import actionTypes from "../common/actionTypes";
+import * as actionTypes from "../common/actionTypes";
 
 /*
 Action creators
 */
 export function getWorkByUserSuccess(monthlyData){
-	return {type: "GET_WORK_BY_USER_SUCCESS", monthlyData }
+	return {type: actionTypes.GET_WORK_BY_USER_SUCCESS, monthlyData }
 }
 
 export function updateSelectedMonthSuccess(month){
-	return {type: "UPDATE_SELECTED_MONTH_SUCCESS", month}
+	return {type: actionTypes.UPDATE_SELECTED_MONTH_SUCCESS, month}
 }
 
 export function updateSelectedYearSuccess(year){
-	return {type: "UPDATE_SELECTED_YEAR_SUCCESS", year}
+	return {type: actionTypes.UPDATE_SELECTED_YEAR_SUCCESS, year}
 }
 
 export function updateSelectedWeekSuccess(week){
-	return {type: "UPDATE_SELECTED_WEEK_SUCCESS", week}
+	return {type: actionTypes.UPDATE_SELECTED_WEEK_SUCCESS, week}
 }
 
 export function changeWeekStatusSuccess(weeklyData){
-	return {type: "UPDATE_WEEK_STATUS_SUCCESS", weeklyData}
+	return {type: actionTypes.UPDATE_WEEK_STATUS_SUCCESS, weeklyData}
 }
 
 /*

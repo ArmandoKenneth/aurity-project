@@ -6,10 +6,4 @@ const OptionBuilder = ({value, displayName}) => {
 	);
 };
 
-// const OptionBuilder = ({item}) => {
-// 	return (
-// 		<option key={item.value} value={item.value}>{item.displayName}</option>
-// 	);
-// };
-
 export default OptionBuilder;

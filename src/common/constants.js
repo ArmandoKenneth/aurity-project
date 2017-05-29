@@ -12,3 +12,4 @@ export const MONTHS = [
 { id: 10, displayValue: "Oct"},
 { id: 11, displayValue: "Nov"},
 { id: 12, displayValue: "Dec"}];
+export const BASE_URL = "https://timesheet-staging-aurity.herokuapp.com/api/";

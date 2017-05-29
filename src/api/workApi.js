@@ -1,7 +1,9 @@
+import * as constants from "../common/constants";
+
 class WorkApi{
 	
 	static getWorkByUser(user = 1, month = (new Date()).getMonth()+1, year = (new Date()).getFullYear()){
-		const request = new Request('https://timesheet-staging-aurity.herokuapp.com/api/training/weeks/'+month+'/'+year+'/'+user, {
+		const request = new Request(constants.BASE_URL+'training/weeks/'+month+'/'+year+'/'+user, {
 			method: 'GET'
 		});
 		return fetch(request).then(response => {
@@ -11,10 +13,9 @@ class WorkApi{
 		});	
 	}
 
-	/* week id eh unica pra o usuario */
 	static changeWeekStatus(weekId, approver, status){
 		const headers = Object.assign({'Content-Type': 'application/json'});
-		const request = new Request('https://timesheet-staging-aurity.herokuapp.com/api/training/weeks/'+weekId+"/users/"+approver, {
+		const request = new Request(constants.BASE_URL+'training/weeks/'+weekId+"/users/"+approver, {
 			method: 'PUT',
 			headers: headers, 
 			body: JSON.stringify({status: status})

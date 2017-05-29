@@ -1,15 +1,15 @@
 import userApi from "../api/userApi";
-// import actionTypes from "../common/actionTypes";
+import * as actionTypes from "../common/actionTypes";
 
 /*
 Action creators
 */
 export function fetchUsersSuccess(users){
-	return {type: "FETCH_USERS_SUCCESS", users }
+	return {type: actionTypes.FETCH_USERS_SUCCESS, users }
 }
 
 export function selectUserSuccess(selectedUser){
-	return {type: "SELECT_USER_SUCCESS", selectedUser}
+	return {type: actionTypes.SELECT_USER_SUCCESS, selectedUser}
 }
 
 /*

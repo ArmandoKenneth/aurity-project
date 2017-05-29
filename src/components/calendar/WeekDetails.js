@@ -1,4 +1,5 @@
 import React from 'react';
+import * as Util from '../../common/util';
 
 const WeekDetails = ({week}) => {
 
@@ -11,11 +12,6 @@ const WeekDetails = ({week}) => {
 	let subTitleStyle = {
 		borderBottom: "2px solid rgb(240, 210, 79)",
 		margin: "1.5em",
-		// marginop: "1.5em",
-	}
-
-	function addLeadingZero(value){
-		return value < 10 ? "0"+value : value;
 	}
 
 	if (week){
@@ -29,10 +25,10 @@ const WeekDetails = ({week}) => {
 							return (
 								<div key={day.id} className="col-lg-1 col-sm-1 col-md-1" style={dayDetail}>
 									<div className="row">
-										<b>{addLeadingZero(day.day_number)}</b>
+										<b>{Util.addLeadingZero(day.day_number)}</b>
 									</div>
 									<div className="row">
-										{addLeadingZero(day.hours)}:{addLeadingZero(day.minutes)}
+										{Util.addLeadingZero(day.hours)}:{Util.addLeadingZero(day.minutes)}
 									</div>
 								</div>
 							)

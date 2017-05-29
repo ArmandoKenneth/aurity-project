@@ -31,23 +31,13 @@ class Main extends React.Component {
 		this.onClickWeek = this.onClickWeek.bind(this);
 		this.onApprove = this.onApprove.bind(this);
 		this.onReject = this.onReject.bind(this);
-		// if (!this.state.monthlyData || this.state.monthlyData.weeks.length == 0){
-		// 	this.props.workActions.getWorkByUser(this.state.selectedUser.id, this.state.selectedMonth, this.state.selectedYear);
-		// }
 	}
 
 	componentWillReceiveProps(nextProps){
 		this.setState(this.buildStateFromProps(nextProps));
-		// if (nextProps.monthlyData.weeks.length > 0 && this.state.selectedWeek == -1){
-			// this.props.workActions.updateSelectedWeek(nextProps.monthlyData.weeks[0].week_id);
-		// }
-		// if (!nextProps.monthlyData || !nextProps.monthlyData.initialized){
-		// 	this.props.workActions.getWorkByUser(nextProps.selectedUser.id, nextProps.selectedMonth, nextProps.selectedYear);
-		// }
 	}
 
 	render() {
-		//col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-offset-2 
 		let actionButtons = null;
 		let acceptButtonDisabled;
 		let rejectButtonDisabled;
@@ -82,18 +72,15 @@ class Main extends React.Component {
 			height: "75px",
 			padding: "1em",
 			backgroundColor: "rgb(245, 247, 250)",
-			// borderBottom: "2px solid rgba(240, 210, 79, .5)"
 		}
 
 		let dropdownSpace = {
 			width: "100%",
 			height: "70px",
 			padding: "1em 1em 1em 3.5em",
-			// backgroundColor: "rgba(245, 247, 250, .6)"
 		}
 		
 		let calendarSpace = {
-			// backgroundColor: "rgba(245, 247, 250, .6)",
 			marginTop: -20
 		}
 
@@ -147,14 +134,10 @@ class Main extends React.Component {
 	}
 
 	onChange(event){
-		// this.setState({
-		// 	selectedUser: this.props.users.filter(user => user.id == event.target.value)[0]
-		// });
 		const user = this.props.users.filter(user => user.id == event.target.value)[0];
 		this.props.userActions.selectUser(user);
 		this.props.workActions.getWorkByUser(user.id, this.props.selectedMonth, this.props.selectedYear);
 		this.props.workActions.updateSelectedWeek(-1);
-		// this.props.workActions.getWorkByUser(event.target.value, this.props.selectedMonth, this.props.selectedYear);
 		this.setState({selectedUser: user});
 	}
 
@@ -162,33 +145,24 @@ class Main extends React.Component {
 		this.props.workActions.updateSelectedMonth(event.target.value);
 		this.props.workActions.getWorkByUser(this.props.selectedUser.id, event.target.value, this.props.selectedYear);
 		this.props.workActions.updateSelectedWeek(-1);
-		// this.props.workActions.updateSelectedWeek(this.props.monthlyData.weeks[0].week_id);
-		// this.setState({selectedMonth: this.state.selectedMonth, selectedYear: this.state.selectedYear});
-		// console.log("month changed to: "+event.target.value);
 	}
 
 	onYearChange(event){
 		this.props.workActions.updateSelectedYear(event.target.value);
 		this.props.workActions.getWorkByUser(this.props.selectedUser.id, this.props.selectedMonth, event.target.value);
 		this.props.workActions.updateSelectedWeek(-1);
-		// console.log("year changed to: "+event.target.value);
 	}
 
 	onClickWeek(event){
 		this.props.workActions.updateSelectedWeek(event.target.className.split(" ")[0]);
-		// console.log(event.target.className);
 	}
 
 	onApprove(event){
-		// console.log("Vou aprovar")
 		this.props.workActions.changeWeekStatus(this.state.selectedWeek, 1, "approved");
-		// this.props.workActions.updateSelectedWeek(-1);
 	}
 
 	onReject(event){
-		// console.log("Vou aprovar")
 		this.props.workActions.changeWeekStatus(this.state.selectedWeek, 1, "rejected");
-		// this.props.workActions.updateSelectedWeek(-1);
 	}
 
 }
