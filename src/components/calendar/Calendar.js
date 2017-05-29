@@ -34,7 +34,7 @@ const Calendar = ({name, onClick, monthlyData}) => {
 			<br/>
 			{
 				monthlyData.weeks.sort(sortWeek).map(function(week){
-					return <Week week={week} key={week.week_id}/>
+					return <Week week={week} key={week.week_id} onClick={onClick}/>
 					// {week.week_id}
 					// return <div>This week {week.week_number} has {week.days_in_week.length} days</div>
 				})

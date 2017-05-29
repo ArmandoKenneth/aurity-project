@@ -12,5 +12,6 @@ export default {
 		month: currentMonth
 	},
 	selectedYear: currentYear,
-	selectedMonth: currentMonth
+	selectedMonth: currentMonth,
+	selectedWeek: -1
 }

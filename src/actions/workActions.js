@@ -16,6 +16,13 @@ export function updateSelectedYearSuccess(year){
 	return {type: "UPDATE_SELECTED_YEAR_SUCCESS", year}
 }
 
+export function updateSelectedWeekSuccess(week){
+	return {type: "UPDATE_SELECTED_WEEK_SUCCESS", week}
+}
+
+export function changeWeekStatusSuccess(weeklyData){
+	return {type: "UPDATE_WEEK_STATUS_SUCCESS", weeklyData}
+}
 
 /*
 Actions
@@ -23,7 +30,7 @@ Actions
 export function getWorkByUser(user, month, year){
 	return function(dispatch){
 		return workApi.getWorkByUser(user, month, year).then(monthlyData => {
-			console.log(monthlyData);
+			// console.log(monthlyData);
 			dispatch(getWorkByUserSuccess(monthlyData));
 		}).catch(error => {
 			throw error;
@@ -40,5 +47,21 @@ export function updateSelectedMonth(month){
 export function updateSelectedYear(year){
 	return function(dispatch){
 		return dispatch(updateSelectedYearSuccess(year));
+	}
+}
+
+export function updateSelectedWeek(week){
+	return function(dispatch){
+		return dispatch(updateSelectedWeekSuccess(week))
+	}
+}
+
+export function changeWeekStatus(weekId, approver, status){
+	return function(dispatch){
+		return workApi.changeWeekStatus(weekId, approver, status).then(weeklyData => {
+			dispatch(changeWeekStatusSuccess(weeklyData));
+		}).catch(error => {
+			throw error;
+		});
 	}
 }

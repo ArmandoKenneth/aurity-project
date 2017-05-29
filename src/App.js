@@ -5,7 +5,10 @@ import Main from './components/Main';
 class App extends Component {
   render() {
     return (
+      <div  className="container">
       <Route path='/' component={Main}/>    
+        
+      </div>
     );
   }
 }

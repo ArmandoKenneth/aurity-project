@@ -1,3 +1,5 @@
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap/dist/css/bootstrap-theme.css';
 // import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -13,6 +15,7 @@ import rootReducer from './reducers/rootReducer';
 import {BrowserRouter } from 'react-router-dom';
 
 import { fetchUsers } from './actions/userActions';
+import { getWorkByUser } from './actions/workActions';
 // import { browserHistory } from 'react-router';  
 // import routes from './routes';
 // import { composeWithDevTools } from 'redux-devtools-extension';
@@ -23,6 +26,7 @@ const store = createStore(
 );
 
 store.dispatch(fetchUsers());
+store.dispatch(getWorkByUser());
 
 ReactDOM.render(
 	<Provider store={store}>
