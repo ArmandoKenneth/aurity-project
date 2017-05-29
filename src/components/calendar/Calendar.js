@@ -1,7 +1,8 @@
 import React from 'react';
 import Week from './Week';
+import WeekDetails from './WeekDetails';
 
-const Calendar = ({name, onClick, monthlyData}) => {
+const Calendar = ({name, onClick, monthlyData, selectedWeek}) => {
 
 	// function buildWeek(week) {
 	// 	return (
@@ -26,21 +27,35 @@ const Calendar = ({name, onClick, monthlyData}) => {
 		return a.week_number - b.week_number;
 	}
 
-	return (
-		<div>
-			{monthlyData.year} / {monthlyData.month}			
-			<br/>
-			Weeks: {monthlyData.weeks.length}
-			<br/>
-			{
-				monthlyData.weeks.sort(sortWeek).map(function(week){
-					return <Week week={week} key={week.week_id} onClick={onClick}/>
-					// {week.week_id}
-					// return <div>This week {week.week_number} has {week.days_in_week.length} days</div>
-				})
-			}
-		</div>
-	);
+	let subTitleStyle = {
+		borderBottom: "2px solid rgb(240, 210, 79)",
+		margin: "1.5em",
+		// marginop: "1.5em",
+	}
+
+	let calendarStyle = {
+		paddingLeft: "2em"
+		// border: "13px solid rgba(245, 247, 250, 1)",
+		// maxWidth: "400px",
+		// float: "left"
+	}
+
+	if (monthlyData.weeks.length == 0){
+		return <h2><span style={subTitleStyle}>No data for the selected period</span></h2>
+	}else{
+		return (
+			<div className="container" style={calendarStyle}>
+				{
+					monthlyData.weeks.sort(sortWeek).map(function(week){
+						return <Week week={week} key={week.week_id} onClick={onClick} selectedWeek={selectedWeek}/>
+						// {week.week_id}
+						// return <div>This week {week.week_number} has {week.days_in_week.length} days</div>
+					})
+				}
+				<WeekDetails week={monthlyData.weeks.filter((week) => {return week.week_id == selectedWeek})[0]}/>
+			</div>
+		);
+	}
 };
 
 export default Calendar;

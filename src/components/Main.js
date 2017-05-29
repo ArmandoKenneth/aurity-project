@@ -38,47 +38,109 @@ class Main extends React.Component {
 
 	componentWillReceiveProps(nextProps){
 		this.setState(this.buildStateFromProps(nextProps));
-		if (nextProps.monthlyData.weeks.length > 0 && this.state.selectedWeek == -1){
-			this.props.workActions.updateSelectedWeek(nextProps.monthlyData.weeks[0].week_id);
-		}
+		// if (nextProps.monthlyData.weeks.length > 0 && this.state.selectedWeek == -1){
+			// this.props.workActions.updateSelectedWeek(nextProps.monthlyData.weeks[0].week_id);
+		// }
 		// if (!nextProps.monthlyData || !nextProps.monthlyData.initialized){
 		// 	this.props.workActions.getWorkByUser(nextProps.selectedUser.id, nextProps.selectedMonth, nextProps.selectedYear);
 		// }
 	}
 
 	render() {
-
+		//col-md-offset-2 col-sm-offset-2 col-xs-offset-2 col-lg-offset-2 
 		let actionButtons = null;
+		let acceptButtonDisabled;
+		let rejectButtonDisabled;
+		this.state.monthlyData.weeks.map((week) => {
+			if (week.week_id == this.state.selectedWeek){
+				acceptButtonDisabled = week.status == "approved";
+				rejectButtonDisabled = week.status == "rejected";
+			}
+		});
+
+		let glyphStyle = {
+			marginRight: ".5em"
+		}
+
+		let logoStyle = {
+			width: "50px"
+		}
+
+		let headerStyle = {
+			backgroundColor: "rgb(240, 210, 79)"
+		}
+
+		let titleStyle = {
+			fontSize: "20px",
+			color: "#666464",
+			paddingTop: "35px",
+			display: "inline"
+		}
+
+		let userSpace = {
+			width: "100%",
+			height: "75px",
+			padding: "1em",
+			backgroundColor: "rgb(245, 247, 250)",
+			// borderBottom: "2px solid rgba(240, 210, 79, .5)"
+		}
+
+		let dropdownSpace = {
+			width: "100%",
+			height: "70px",
+			padding: "1em 1em 1em 3.5em",
+			// backgroundColor: "rgba(245, 247, 250, .6)"
+		}
+		
+		let calendarSpace = {
+			// backgroundColor: "rgba(245, 247, 250, .6)",
+			marginTop: -20
+		}
+
+		let generalSpace = {
+			backgroundColor: "rgba(245, 247, 250, .6)"
+		}
+
+		let buttonsStyle = {
+			padding: "2em"
+		}
+
 		if (this.state.selectedWeek > -1){
-			actionButtons = <div>
-				<button onClick={this.onApprove} className="btn btn-primary">Accept</button>
-				<button onClick={this.onReject} className="btn btn-danger">Reject</button>
+			actionButtons = <div style={buttonsStyle}>
+				<button onClick={this.onApprove} className="btn btn-success" disabled={acceptButtonDisabled}>
+					<span className="glyphicon glyphicon-ok" style={glyphStyle} aria-hidden="true"></span>Accept
+				</button>
+				<button onClick={this.onReject} className="btn btn-danger" disabled={rejectButtonDisabled}>
+					<span className="glyphicon glyphicon-remove" style={glyphStyle}  aria-hidden="true"></span>Reject
+				</button>
 			</div>
 		}
 
 		return(
 			<div>
-				Renderizou o Main: {this.state.users.length}
-				<br/>
-				<UserSelect
-					name="userSelect" 
-					label="User"
-					onChange={this.onChange}
-					users={this.state.users && this.state.users.length > 0 ? this.state.users : []} 
-					/>
-				<br/>
-				{this.state.selectedUser ? this.state.selectedUser.email : ""}
-				<br/>
-				<GeneralSelect name="monthSelect" onChange={this.onMonthChange} data={Constants.MONTHS} selectedValue={this.state.selectedMonth} />
-				<GeneralSelect name="yearSelect" onChange={this.onYearChange} data={Constants.YEARS} selectedValue={this.state.selectedYear}/>
-				<br/>
-				({this.state.selectedMonth}/{this.state.selectedYear})
-				<br/>
-				<Calendar name="calendar" onClick={this.onClickWeek} monthlyData={this.state.monthlyData} />
-				<br/>
-				{this.state.selectedWeek}
-				{actionButtons}
-		
+				<div className="header" style={headerStyle}>
+					<img src={process.env.PUBLIC_URL + '/img/logo.png'} style={logoStyle}/> <div style={titleStyle}>Aurity</div>
+				</div>
+				<div style={userSpace}>
+					<UserSelect
+						name="userSelect" 
+						label="User"
+						onChange={this.onChange}
+						users={this.state.users && this.state.users.length > 0 ? this.state.users : []} 
+						/>	
+				</div>
+				<div style={generalSpace}>	
+					<div className="" style={dropdownSpace}>
+						<GeneralSelect name="monthSelect" onChange={this.onMonthChange} data={Constants.MONTHS} selectedValue={this.state.selectedMonth} />
+						<GeneralSelect name="yearSelect" onChange={this.onYearChange} data={Constants.YEARS} selectedValue={this.state.selectedYear}/>
+					</div>
+					<div className="" style={calendarSpace}>
+						<Calendar name="calendar" onClick={this.onClickWeek} monthlyData={this.state.monthlyData} selectedWeek={this.state.selectedWeek} />
+					</div>
+				</div>
+				<div style={generalSpace}>
+					{actionButtons}
+				</div>
 			</div>
 			
 		)
@@ -113,18 +175,20 @@ class Main extends React.Component {
 	}
 
 	onClickWeek(event){
-		this.props.workActions.updateSelectedWeek(event.target.className);
+		this.props.workActions.updateSelectedWeek(event.target.className.split(" ")[0]);
 		// console.log(event.target.className);
 	}
 
 	onApprove(event){
 		// console.log("Vou aprovar")
 		this.props.workActions.changeWeekStatus(this.state.selectedWeek, 1, "approved");
+		// this.props.workActions.updateSelectedWeek(-1);
 	}
 
 	onReject(event){
 		// console.log("Vou aprovar")
 		this.props.workActions.changeWeekStatus(this.state.selectedWeek, 1, "rejected");
+		// this.props.workActions.updateSelectedWeek(-1);
 	}
 
 }

@@ -7,19 +7,25 @@ const UserSelect = ({name, label, onChange, users, selectedUser}) => {
 	function buildDisplayName(user){
 		return user.username+" ("+user.email+")";
 	}
-
+	
+	let labelStyle = {
+		marginRight: "1em"
+	}
 	return (
-		<div>
-			<label htmlFor={name}>{label}</label>
-			<select name={name} onChange={onChange}>
-				{
-				    users.map(function(user) {
-				    	return OptionBuilder({value: user.id, displayName: buildDisplayName(user)});
-				        // return <option key={user.id} value={user.id}>{user.username} ({user.email})</option>;
-				    })
-			    }
-			</select>
+		<div className="form-inline">
+			<div className="form-group">
+				<label htmlFor={name} className="control-label" style={labelStyle}>{label}</label>
+				<select name={name} onChange={onChange} className="form-control">
+					{
+					    users.map(function(user) {
+					    	return OptionBuilder({value: user.id, displayName: buildDisplayName(user)});
+					        // return <option key={user.id} value={user.id}>{user.username} ({user.email})</option>;
+					    })
+				    }
+				</select>
+			</div>
 		</div>
+		
 	);
 };
 

@@ -4,9 +4,13 @@ import Main from './components/Main';
 
 class App extends Component {
   render() {
+    let appStyle = {
+      minWidth: "325px"
+    }
+
     return (
-      <div  className="container">
-      <Route path='/' component={Main}/>    
+      <div  className="container" style={appStyle}>
+        <Route path='/' component={Main}/>    
         
       </div>
     );
