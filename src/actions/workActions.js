@@ -24,16 +24,35 @@ export function changeWeekStatusSuccess(weeklyData){
 	return {type: actionTypes.UPDATE_WEEK_STATUS_SUCCESS, weeklyData}
 }
 
+export function getWorkByUserError(error){
+	return {type: actionTypes.GET_WORK_BY_USER_ERROR, workError: error }
+}
+
+export function updateSelectedMonthError(error){
+	return {type: actionTypes.UPDATE_SELECTED_MONTH_ERROR, workError: error}
+}
+
+export function updateSelectedYearError(error){
+	return {type: actionTypes.UPDATE_SELECTED_YEAR_ERROR, workError: error}
+}
+
+export function updateSelectedWeekError(error){
+	return {type: actionTypes.UPDATE_SELECTED_WEEK_ERROR, workError: error}
+}
+
+export function changeWeekStatusError(error){
+	return {type: actionTypes.UPDATE_WEEK_STATUS_ERROR, workError: error}
+}
+
 /*
 Actions
 */
 export function getWorkByUser(user, month, year){
 	return function(dispatch){
 		return workApi.getWorkByUser(user, month, year).then(monthlyData => {
-			// console.log(monthlyData);
 			dispatch(getWorkByUserSuccess(monthlyData));
 		}).catch(error => {
-			throw error;
+			dispatch(getWorkByUserError(error));
 		});
 	}
 }
@@ -61,7 +80,7 @@ export function changeWeekStatus(weekId, approver, status){
 		return workApi.changeWeekStatus(weekId, approver, status).then(weeklyData => {
 			dispatch(changeWeekStatusSuccess(weeklyData));
 		}).catch(error => {
-			throw error;
+			dispatch(changeWeekStatusError(error));
 		});
 	}
 }

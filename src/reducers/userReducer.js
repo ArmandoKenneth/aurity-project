@@ -9,6 +9,8 @@ export default function userReducer(state = defaultState, action){
 			return Object.assign({}, state, {selectedUser: action.selectedUser})
 		case actionTypes.FETCH_USERS_ERROR:
 			return Object.assign({}, state, {users: [], selectedUser: {}, userError: "Unable to complete the request"})
+		case actionTypes.SELECT_USER_ERROR:
+			return Object.assign({}, state, {userError: "Unable to select the user"})
 		default:
 			return state;
 	}

@@ -19,7 +19,8 @@ class Main extends React.Component {
 			monthlyData: props.monthlyData,
 			users: props.users,
 			selectedWeek: props.selectedWeek,
-			userError: props.userError
+			userError: props.userError,
+			workError: props.workError
 		}
 	}
 
@@ -123,6 +124,8 @@ class Main extends React.Component {
 				</div>
 				<div style={errorMessageStyle}>
 					{this.state.userError}
+					<br/>
+					{this.state.workError}
 				</div>
 				<div style={userSpace}>
 					<UserSelect
@@ -196,7 +199,8 @@ function mapStateToProps(state, ownProps) {
 		selectedMonth: state.workReducer.selectedMonth,
 		selectedYear: state.workReducer.selectedYear,
 		selectedWeek: state.workReducer.selectedWeek,
-		userError: state.userReducer.userError
+		userError: state.userReducer.userError,
+		workError: state.workReducer.workError
 	}
 } 
 
