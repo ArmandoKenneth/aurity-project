@@ -8,6 +8,10 @@ export function fetchUsersSuccess(users){
 	return {type: actionTypes.FETCH_USERS_SUCCESS, users }
 }
 
+export function fetchUsersError(error){
+	return { type: actionTypes.FETCH_USERS_ERROR, userError: error }
+}
+
 export function selectUserSuccess(selectedUser){
 	return {type: actionTypes.SELECT_USER_SUCCESS, selectedUser}
 }
@@ -20,7 +24,7 @@ export function fetchUsers(){
 		return userApi.fetchUsers().then(users => {
 			dispatch(fetchUsersSuccess(users));
 		}).catch(error => {
-			throw error;
+			dispatch(fetchUsersError(error));
 		});
 	}
 }

@@ -9,7 +9,7 @@ class UserApi {
 		return fetch(constants.BASE_URL+'users').then(response => {
 			return response.json();
 		}).catch(error => {
-			return error;
+			throw error;
 		});	
 	}
 

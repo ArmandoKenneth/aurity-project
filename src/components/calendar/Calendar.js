@@ -17,7 +17,7 @@ const Calendar = ({name, onClick, monthlyData, selectedWeek}) => {
 		paddingLeft: "2em"
 	}
 
-	if (monthlyData.weeks.length == 0){
+	if (!monthlyData || monthlyData.weeks.length == 0){
 		return <h2><span style={subTitleStyle}>No data for the selected period</span></h2>
 	}else{
 		return (

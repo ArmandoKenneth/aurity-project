@@ -18,7 +18,8 @@ class Main extends React.Component {
 			selectedYear: props.selectedYear,
 			monthlyData: props.monthlyData,
 			users: props.users,
-			selectedWeek: props.selectedWeek
+			selectedWeek: props.selectedWeek,
+			userError: props.userError
 		}
 	}
 
@@ -41,12 +42,15 @@ class Main extends React.Component {
 		let actionButtons = null;
 		let acceptButtonDisabled;
 		let rejectButtonDisabled;
-		this.state.monthlyData.weeks.map((week) => {
-			if (week.week_id == this.state.selectedWeek){
-				acceptButtonDisabled = week.status == "approved";
-				rejectButtonDisabled = week.status == "rejected";
-			}
-		});
+		if (this.state.monthlyData){
+			this.state.monthlyData.weeks.map((week) => {
+				if (week.week_id == this.state.selectedWeek){
+					acceptButtonDisabled = week.status == "approved";
+					rejectButtonDisabled = week.status == "rejected";
+				}
+			});
+			
+		}
 
 		let glyphStyle = {
 			marginRight: ".5em"
@@ -92,6 +96,15 @@ class Main extends React.Component {
 			padding: "2em"
 		}
 
+		let errorMessageStyle = {
+			color: "red",
+			width: "100%",
+			height: "30px",
+			padding: "1em",
+			backgroundColor: "rgb(245, 247, 250)",
+
+		}
+
 		if (this.state.selectedWeek > -1){
 			actionButtons = <div style={buttonsStyle}>
 				<button onClick={this.onApprove} className="btn btn-success" disabled={acceptButtonDisabled}>
@@ -107,6 +120,9 @@ class Main extends React.Component {
 			<div>
 				<div className="header" style={headerStyle}>
 					<img src={process.env.PUBLIC_URL + '/img/logo.png'} style={logoStyle}/> <div style={titleStyle}>Aurity</div>
+				</div>
+				<div style={errorMessageStyle}>
+					{this.state.userError}
 				</div>
 				<div style={userSpace}>
 					<UserSelect
@@ -179,7 +195,8 @@ function mapStateToProps(state, ownProps) {
 		monthlyData: state.workReducer.monthlyData,
 		selectedMonth: state.workReducer.selectedMonth,
 		selectedYear: state.workReducer.selectedYear,
-		selectedWeek: state.workReducer.selectedWeek
+		selectedWeek: state.workReducer.selectedWeek,
+		userError: state.userReducer.userError
 	}
 } 
 
